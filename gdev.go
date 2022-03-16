@@ -39,12 +39,10 @@ func LFSDevInit(phy string, dc gilix.DevCp) gilix.Dev {
 		dc:     dc,
 	}
 
-	d.devpx = NewDevpXCb(d.phyini, d.dc, d)
+	d.devpx, d.devx = NewDevpXCb(d.phyini, d.dc, d)
 	if d.devpx == nil {
 		return d
 	}
-
-	d.devx = d.devpx.DevX()
 	if d.devx != nil {
 		d.devx.Init()
 	}

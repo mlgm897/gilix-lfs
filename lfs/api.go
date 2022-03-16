@@ -1,43 +1,5 @@
 package lfs
 
-/****** LFSDEVSTATUS.state 的取值 *****************************************/
-
-const (
-	LFS_STAT_DEVONLINE         = 0
-	LFS_STAT_DEVOFFLINE        = 1
-	LFS_STAT_DEVPOWEROFF       = 2
-	LFS_STAT_DEVNODEVICE       = 3
-	LFS_STAT_DEVHWERROR        = 4
-	LFS_STAT_DEVUSERERROR      = 5
-	LFS_STAT_DEVBUSY           = 6
-	LFS_STAT_DEVFRAUDATTEMPT   = 7
-	LFS_STAT_DEVPOTENTIALFRAUD = 8
-)
-
-/****** 消息结构体定义 ***************************************************/
-
-type LFSDEVSTATUS struct {
-	PhysicalName    string
-	WorkstationName string
-	State           uint
-}
-
-type LFSAPPDISC struct {
-	LogicalName     string
-	WorkstationName string
-	AppID           string
-}
-
-type LFSHWERROR struct {
-	LogicalName     string
-	PhysicalName    string
-	WorkstationName string
-	AppID           string
-	Action          uint
-	Size            uint
-	Description     []byte
-}
-
 /****** 错误码 ************************************************************/
 
 const (
@@ -112,16 +74,4 @@ const (
 	LFS_SYSE_SOFTWARE_ERROR    = 6
 	LFS_SYSE_USER_ERROR        = 7
 	LFS_SYSE_LOCK_REQUESTED    = 8
-)
-
-/****** LFS 错误时采取的动作 *********************************************/
-
-const (
-	LFS_ERR_ACT_NOACTION = 0x0000
-	LFS_ERR_ACT_RESET    = 0x0001
-	LFS_ERR_ACT_SWERROR  = 0x0002
-	LFS_ERR_ACT_CONFIG   = 0x0004
-	LFS_ERR_ACT_HWCLEAR  = 0x0008
-	LFS_ERR_ACT_HWMAINT  = 0x0010
-	LFS_ERR_ACT_SUSPEND  = 0x0020
 )

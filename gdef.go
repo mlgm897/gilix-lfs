@@ -57,11 +57,9 @@ type LFSDevCp interface {
 /* ********************************************************** */
 
 // NewXXX , e.g. NewIDCCRD
-type NewDevpX func(phyini *kit.PhyIni, dc gilix.DevCp, ldc LFSDevCp) LFSDevpX
+type NewDevpX func(phyini *kit.PhyIni, dc gilix.DevCp, ldc LFSDevCp) (LFSDevpX, LFSDevX)
 
 type LFSDevpX interface {
-	DevX() LFSDevX
-
 	PollFuncs() []gilix.Callee
 	OnInf(*lfs.LFSMsg, *lfs.LFSUsr) (qut gilix.QUEUET, cee gilix.Callee, pci int)
 	OnCmd(*lfs.LFSMsg, *lfs.LFSUsr) (qut gilix.QUEUET, cee gilix.Callee, chk bool, chg bool)
