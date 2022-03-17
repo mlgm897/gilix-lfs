@@ -12,6 +12,7 @@ import (
 	"github.com/lindorof/gilix"
 	acptcp "github.com/lindorof/gilix/acp/tcp"
 	"github.com/lindorof/gilix/rdc"
+
 	_ "github.com/lindorof/gilix/sot"
 	"github.com/lindorof/gilix/util"
 
@@ -59,17 +60,22 @@ func (g *gilixCBS) ZaptCfg() (path string, mode string, purge int, lelvel string
 
 func LoopSync() {
 	gini := kit.NewGilixIni()
-	zapt := kit.CreateZapt("gilix", "main")
+	zapt := kit.CreateZapt("gilix/glfs", "glfs")
 	syncer := util.CreateSyncerWithSig(context.Background())
 
 	zapt.Infof("entry")
 	defer zapt.Infof("exit")
+	defer func() {
+		if err := recover(); err != nil {
+			zapt.DPanicf("[!!! panic recover] %v", err)
+		}
+	}()
 
 	proct := util.NewProct(syncer.Ctx())
 	for p, r := range gini.Rdc {
 		zapt.Infof("rdc start [%s][%s:%s][dial:%d]", p, r.Ip, r.Port, r.Dial)
-		proct.AddCmd(func(cmd *util.ProctCmd) {
-			zapt.Infof("rdc exit [%s][pid:%d][%v]", p, cmd.C.Process.Pid, cmd.E)
+		proct.AddCmd(p, func(cmd *util.ProctCmd) {
+			zapt.Infof("rdc exit [%s][pid:%d][%v]", cmd.N, cmd.I, cmd.E)
 		}, "./cilix_rdc"+kit.ExeExt(), "-init", p, p+"_DRV", r.Ip, r.Port)
 	}
 

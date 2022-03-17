@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-ini/ini v1.66.4
-	github.com/lindorof/gilix v0.1.8
+	github.com/lindorof/gilix v0.1.9
 )
 
 require (
