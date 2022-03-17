@@ -12,6 +12,7 @@ import (
 	"github.com/lindorof/gilix"
 	acptcp "github.com/lindorof/gilix/acp/tcp"
 	"github.com/lindorof/gilix/rdc"
+	_ "github.com/lindorof/gilix/sot"
 	"github.com/lindorof/gilix/util"
 
 	"github.com/lindorof/gilix-lfs/kit"
