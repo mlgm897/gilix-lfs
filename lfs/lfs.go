@@ -99,7 +99,7 @@ func (t *LFSVal) DecodeVal(v gilix.PARA) error {
 type LFSUsr struct {
 	Logic     string
 	LogicType string
-	Regm      map[string]uint
+	regm      map[string]uint
 }
 
 // CBS
@@ -109,23 +109,23 @@ func LFSUsrSnap(req gilix.Msg) gilix.Usr {
 	return &LFSUsr{
 		Logic:     rm.Laux.Logic,
 		LogicType: kit.Logic2Type(rm.Laux.Logic),
-		Regm:      make(map[string]uint, 256),
+		regm:      make(map[string]uint, 256),
 	}
 }
 
-func (t *LFSUsr) Regx(msg *LFSMsg) {
+func (t *LFSUsr) regx(msg *LFSMsg) {
 	switch msg.Ltype {
 	case gilix.TYPE_REG:
-		c := t.Regm[msg.Laux.RegHwnd]
+		c := t.regm[msg.Laux.RegHwnd]
 		c |= msg.Laux.RegEvt
-		t.Regm[msg.Laux.RegHwnd] = c
+		t.regm[msg.Laux.RegHwnd] = c
 	case gilix.TYPE_DEREG:
-		c := t.Regm[msg.Laux.RegHwnd]
+		c := t.regm[msg.Laux.RegHwnd]
 		c -= (c & msg.Laux.RegEvt)
 		if c == 0 || msg.Laux.RegEvt == 0 {
-			delete(t.Regm, msg.Laux.RegHwnd)
+			delete(t.regm, msg.Laux.RegHwnd)
 		} else {
-			t.Regm[msg.Laux.RegHwnd] = c
+			t.regm[msg.Laux.RegHwnd] = c
 		}
 	}
 }
@@ -261,9 +261,9 @@ func LFSMsgByRsp(req gilix.Msg, ret gilix.RET, rsp gilix.Rsp) gilix.Msg {
 // CBS
 func LFSMsgByEvt(hi gilix.HsId, usr gilix.Usr, evt gilix.Evt) []gilix.Msg {
 	lu := usr.(*LFSUsr)
-	ms := make([]gilix.Msg, 0, len(lu.Regm))
+	ms := make([]gilix.Msg, 0, len(lu.regm))
 
-	for h, c := range lu.Regm {
+	for h, c := range lu.regm {
 		if !evt2c(evt.Type(), c) {
 			continue
 		}
@@ -395,13 +395,13 @@ func (d *LFSDevp) OnReq(req gilix.Msg, usr gilix.Usr) (qut gilix.QUEUET, cee gil
 	r := req.(*LFSMsg)
 	u := usr.(*LFSUsr)
 
-	u.Regx(r)
+	u.regx(r)
 
 	if d.devpx == nil {
 		return
 	}
 
-	DecodeLparaCb(r)
+	decodeLpara(r)
 	switch r.Ltype {
 	case gilix.TYPE_INF:
 		qut, cee, pci = d.devpx.OnInf(r, u)
@@ -492,7 +492,4 @@ type LFSDevX interface {
 // CBS
 /* ********************************************************** */
 
-type DecodeLpara func(*LFSMsg)
-
 var NewDevpXCb NewDevpX = nil
-var DecodeLparaCb DecodeLpara = nil

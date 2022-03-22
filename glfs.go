@@ -6,6 +6,7 @@ import (
 
 	"github.com/lindorof/gilix"
 	acptcp "github.com/lindorof/gilix/acp/tcp"
+	acpws "github.com/lindorof/gilix/acp/ws"
 
 	_ "github.com/lindorof/gilix/sot"
 	"github.com/lindorof/gilix/util"
@@ -76,10 +77,12 @@ func LoopSync() {
 
 	syncer.Async(gilix.CPS.SotLoopSync, gilix.CPS.SotLoopBreak)
 	for n, a := range gini.Acp {
+		zapt.Infof("acp start [%s][%s][net:%s]", n, a.Addr, a.Net)
 		switch strings.ToLower(a.Net) {
 		case "tcp":
-			zapt.Infof("acp start [%s][%s][net:%s]", n, a.Addr, a.Net)
 			gilix.CPS.SubmitAcp(acptcp.CreateServer(nil, a.Addr))
+		case "ws":
+			gilix.CPS.SubmitAcp(acpws.CreateServer(nil, a.Addr, "/"))
 		}
 	}
 
