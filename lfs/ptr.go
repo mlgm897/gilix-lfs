@@ -565,7 +565,7 @@ type LFSPTRSTATUS struct {
 	Lamp                  uint
 	RetractBins           []LFSPTRRETRACTBINS
 	MediaOnStacker        uint
-	Extra                 []byte
+	Extra                 []string
 	GuidLights            [LFS_PTR_GUIDLIGHTS_SIZE]uint
 	DevicePosition        uint
 	PowerSaveRecoveryTime uint
@@ -594,7 +594,7 @@ type LFSPTRCAPS struct {
 	ImageSource           uint
 	CharSupport           uint
 	DispensePaper         int
-	Extra                 []byte
+	Extra                 []string
 	GuidLights            [LFS_PTR_GUIDLIGHTS_SIZE]uint
 	Printer               string
 	MediaPresented        int
@@ -616,7 +616,7 @@ type LFSFRMHEADER struct {
 	OffsetY      uint
 	VersionMajor uint
 	VersionMinor uint
-	UserPrompt   []byte
+	UserPrompt   string
 	CharSupport  uint
 	Fields       []string
 	LanguageID   uint
@@ -658,9 +658,9 @@ type LFSFRMFIELD struct {
 	FieldClass          uint
 	Access              uint
 	Overflow            uint
-	InitialValue        []byte
+	InitialValue        string
 	UnicodeInitialValue []byte
-	Format              []byte
+	Format              string
 	UnicodeFormat       []byte
 	LanguageID          uint
 }
@@ -712,7 +712,7 @@ type LFSPTRPRINTFORM struct {
 	OffsetY       uint
 	Resolution    uint
 	MediaControl  uint
-	Fields        [][]byte
+	Fields        []string
 	UnicodeFields [][]byte
 	PaperSource   uint
 }
@@ -725,7 +725,7 @@ type LFSPTRREADFORM struct {
 }
 
 type LFSPTRREADFORMOUT struct {
-	Fields        [][]byte
+	Fields        []string
 	UnicodeFields [][]byte //LPWSTR
 }
 
