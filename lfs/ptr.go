@@ -686,14 +686,10 @@ type DefInPTRQUERYMEDIA struct {
 }
 
 //LFS_INF_PTR_FORM_LIST Out
-type DefOutPTRFORMLIST struct {
-	FormList []string
-}
+type DefOutPTRFORMLIST []string
 
 //LFS_INF_PTR_MEDIA_LIST Out
-type DefOutPTRMEDIALIST struct {
-	MediaList []string
-}
+type DefOutPTRMEDIALIST []string
 
 //LFS_CMD_PTR_RETRACT_MEDIA Out
 type DefOutRETRACTMEDIA struct {

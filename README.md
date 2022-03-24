@@ -12,7 +12,7 @@
 ##### 参数
 
 - 结构体：保持 C 的结构体大写命名体系，例如 ```LFSIDCCARDDATA```
-- 结构体数组：定义新的结构体 slice 类型，并保持与 LFS 一致的命名风格，例如 ``` type xxx []LFSIDCCARDDATA```
+- 数组：定义新的 slice 类型，并保持与 LFS 一致的命名风格，例如 ``` type xxx []LFSIDCCARDDATA``` ，又如 ```type xxx []string```
 - 简单类型：定义新的结构体进行包装，并保持与 LFS 一致的命名风格
 
 ##### 变量类型
