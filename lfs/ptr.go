@@ -645,12 +645,12 @@ type LFSFRMMEDIA struct {
 }
 
 type LFSPTRQUERYFIELD struct {
-	Form_Name  string
-	Field_Name string
+	FormName  string
+	FieldName string
 }
 
 //LFS_INF_PTR_QUERY_FIELD Out
-type DefOutLFSFRMFIELD []LFSFRMFIELD
+type DefOutPTRQUERYFIELD []LFSFRMFIELD
 type LFSFRMFIELD struct {
 	FieldName           string
 	IndexCount          uint
@@ -676,23 +676,23 @@ type LFSPTRCODELINEMAPPTRG struct {
 
 //自定义
 //LFS_INF_PTR_QUERY_FORM In
-type DefInQUERYFORM struct {
+type DefInPTRQUERYFORM struct {
 	FormName string
 }
 
 //LFS_INF_PTR_QUERY_MEDIA In
-type DefInQUERYMEDIA struct {
+type DefInPTRQUERYMEDIA struct {
 	MediaName string
 }
 
 //LFS_INF_PTR_FORM_LIST Out
-type DefOutFORMLIST struct {
-	FormList []byte
+type DefOutPTRFORMLIST struct {
+	FormList []string
 }
 
 //LFS_INF_PTR_MEDIA_LIST Out
-type DefOutMEDIALIST struct {
-	MediaList []byte
+type DefOutPTRMEDIALIST struct {
+	MediaList []string
 }
 
 //LFS_CMD_PTR_RETRACT_MEDIA Out
