@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/lindorof/gilix"
+	"github.com/lindorof/gilix/acp"
 	acptcp "github.com/lindorof/gilix/acp/tcp"
 	acpws "github.com/lindorof/gilix/acp/ws"
 
@@ -56,7 +57,7 @@ func (g *gilixCBS) ZaptCfg() (path string, mode string, purge int, lelvel string
 
 func LoopSync() {
 	gini := kit.NewGilixIni()
-	zapt := kit.CreateZapt("gilix/glfs", "glfs")
+	zapt := kit.CreateZapt("gilix/glfs", "LoopSync")
 	syncer := util.CreateSyncerWithSig(context.Background())
 
 	zapt.Infof("entry")
@@ -77,13 +78,16 @@ func LoopSync() {
 
 	syncer.Async(gilix.CPS.SotLoopSync, gilix.CPS.SotLoopBreak)
 	for n, a := range gini.Acp {
-		zapt.Infof("acp start [%s][%s][net:%s]", n, a.Addr, a.Net)
+		var acp acp.Acceptor
 		switch strings.ToLower(a.Net) {
 		case "tcp":
-			gilix.CPS.SubmitAcp(acptcp.CreateServer(nil, a.Addr))
+			acp = acptcp.CreateServer(nil, a.Addr)
+			gilix.CPS.SubmitAcp(acp)
 		case "ws":
-			gilix.CPS.SubmitAcp(acpws.CreateServer(nil, a.Addr, "/"))
+			acp = acpws.CreateServer(nil, a.Addr, "/")
+			gilix.CPS.SubmitAcp(acp)
 		}
+		zapt.Infof("acp start [%s][%s][%s][%p]", n, a.Net, a.Addr, acp)
 	}
 
 	syncer.WaitRelease(util.SyncerWaitModeIdle)
