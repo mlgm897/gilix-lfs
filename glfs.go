@@ -75,7 +75,7 @@ func NewLazyEval() *lazyEval {
 
 		n := 0
 		for !l.exit {
-			n++
+			n--
 			c <- n
 		}
 
