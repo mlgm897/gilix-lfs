@@ -56,6 +56,7 @@ func (g *gilixCBS) ZaptCfg() (path string, mode string, purge int, lelvel string
 /* ********************************************************** */
 
 func LoopSync() {
+	cps := gilix.NewCPS()
 	gini := kit.NewGilixIni()
 	zapt := kit.CreateZapt("gilix/glfs", "LoopSync")
 	syncer := util.CreateSyncerWithSig(context.Background())
@@ -76,16 +77,16 @@ func LoopSync() {
 		}, "./cilix_rdc"+kit.ExeExt(), "-init", p, p+"_DRV", r.Ip, r.Port)
 	}
 
-	syncer.Async(gilix.CPS.SotLoopSync, gilix.CPS.SotLoopBreak)
+	syncer.Async(cps.SotLoopSync, cps.SotLoopBreak)
 	for n, a := range gini.Acp {
 		var acp acp.Acceptor
 		switch strings.ToLower(a.Net) {
 		case "tcp":
 			acp = acptcp.CreateServer(nil, a.Addr)
-			gilix.CPS.SubmitAcp(acp)
+			cps.SubmitAcp(acp)
 		case "ws":
 			acp = acpws.CreateServer(nil, a.Addr, "/")
-			gilix.CPS.SubmitAcp(acp)
+			cps.SubmitAcp(acp)
 		}
 		zapt.Infof("acp start [%s][%s][%s][%p]", n, a.Net, a.Addr, acp)
 	}
