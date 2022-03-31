@@ -16,6 +16,13 @@ import (
 )
 
 /* ********************************************************** */
+// set by glfs
+/* ********************************************************** */
+
+var GeneHs func() gilix.HS = nil
+var GeneId func() gilix.ID = nil
+
+/* ********************************************************** */
 // util
 /* ********************************************************** */
 
@@ -225,11 +232,17 @@ func LFSMsgEncode(m gilix.Msg) []byte {
 // CBS
 func LFSMsgDecode(data []byte) gilix.Msg {
 	m := &LFSMsg{}
-	e := unmarshal(data, m)
-	if e == nil {
-		return m
+	if e := unmarshal(data, m); e != nil {
+		return nil
 	}
-	return nil
+
+	if m.Lhs == gilix.HS_NIL {
+		m.Lhs = GeneHs()
+	}
+	if m.Lid == gilix.ID_NIL {
+		m.Lid = GeneId()
+	}
+	return m
 }
 
 // CBS

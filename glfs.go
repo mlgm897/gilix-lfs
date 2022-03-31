@@ -3,6 +3,7 @@ package glfs
 import (
 	"context"
 	"strings"
+	"sync"
 
 	"github.com/lindorof/gilix"
 	"github.com/lindorof/gilix/acp"
@@ -52,10 +53,65 @@ func (g *gilixCBS) ZaptCfg() (path string, mode string, purge int, lelvel string
 }
 
 /* ********************************************************** */
+// gilixLazyEval
+/* ********************************************************** */
+
+type lazyEval struct {
+	hss chan int
+	ids chan int
+
+	wg   sync.WaitGroup
+	exit bool
+}
+
+func NewLazyEval() *lazyEval {
+	l := &lazyEval{
+		hss: make(chan int),
+		ids: make(chan int),
+	}
+
+	f := func(c chan int) {
+		l.wg.Add(1)
+
+		n := 0
+		for !l.exit {
+			n++
+			c <- n
+		}
+
+		l.wg.Done()
+	}
+
+	go f(l.hss)
+	go f(l.ids)
+
+	return l
+}
+
+func (l *lazyEval) evalHS() gilix.HS {
+	return gilix.HS(<-l.hss)
+}
+
+func (l *lazyEval) evalID() gilix.ID {
+	return gilix.ID(<-l.ids)
+}
+
+func (l *lazyEval) Fini() {
+	l.exit = true
+	<-l.hss
+	<-l.ids
+	l.wg.Wait()
+}
+
+/* ********************************************************** */
 // gilixMain
 /* ********************************************************** */
 
 func LoopSync() {
+	le := NewLazyEval()
+	lfs.GeneHs = le.evalHS
+	lfs.GeneId = le.evalID
+
 	cps := gilix.NewCPS()
 	gini := kit.NewGilixIni()
 	zapt := kit.CreateZapt("gilix/glfs", "LoopSync")
@@ -93,4 +149,5 @@ func LoopSync() {
 
 	syncer.WaitRelease(util.SyncerWaitModeIdle)
 	proct.Wait()
+	le.Fini()
 }
