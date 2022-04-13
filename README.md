@@ -1,5 +1,7 @@
 # gilix-lfs
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/lindorof/gilix-lfs.svg)](https://pkg.go.dev/github.com/lindorof/gilix-lfs)
+
 基于 [gilix](https://github.com/lindorof/gilix) 平台的 LFS 协议实现。
 
 ### 从 C 到 Go 的数据转译规范

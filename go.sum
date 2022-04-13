@@ -10,8 +10,8 @@ github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/ad
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
-github.com/lindorof/gilix v0.1.12 h1:WYBD7gr8n3VezC8rE5/O50Z84wTWqGRD6YA3qch94/Q=
-github.com/lindorof/gilix v0.1.12/go.mod h1:CssjTF/egcHP4hdHk4sbxAuGPpI+xJPWjwFGj3Eu4BM=
+github.com/lindorof/gilix v0.1.13 h1:otMtSRQSCPum/C+B8K2UjPHYs4ipC5eEsc0Vk6UeEfg=
+github.com/lindorof/gilix v0.1.13/go.mod h1:CssjTF/egcHP4hdHk4sbxAuGPpI+xJPWjwFGj3Eu4BM=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
