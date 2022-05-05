@@ -130,7 +130,7 @@ func LoopSync() {
 		zapt.Infof("rdc start [%s][%s:%s][dial:%d]", p, r.Ip, r.Port, r.Dial)
 		proct.AddCmd(p, func(cmd *util.ProctCmd) {
 			zapt.Infof("rdc exit [%s][pid:%d][%v]", cmd.N, cmd.I, cmd.E)
-		}, "./cilix_rdc"+kit.ExeExt(), "-init", p, p+"_DRV", r.Ip, r.Port)
+		}, "./cilix_rdc"+kit.ExeExt(), "-init", p, "libDRV_"+p, r.Ip, r.Port)
 	}
 
 	syncer.Async(cps.SotLoopSync, cps.SotLoopBreak)
