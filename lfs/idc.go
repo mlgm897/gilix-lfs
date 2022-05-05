@@ -1,5 +1,33 @@
 package lfs
 
+import (
+	"context"
+
+	"github.com/lindorof/gilix"
+)
+
+type LFSDevXIDC interface {
+	LFSDevX
+
+	Status(context.Context, gilix.PARA) gilix.Rsp
+	Capabilities(context.Context, gilix.PARA) gilix.Rsp
+	FormList(context.Context, gilix.PARA) gilix.Rsp
+	QueryForm(context.Context, gilix.PARA) gilix.Rsp
+
+	ReadTrack(context.Context, gilix.PARA) gilix.Rsp
+	WriteTrack(context.Context, gilix.PARA) gilix.Rsp
+	Eject(context.Context, gilix.PARA) gilix.Rsp
+	Retain(context.Context, gilix.PARA) gilix.Rsp
+	ResetCount(context.Context, gilix.PARA) gilix.Rsp
+	SetKey(context.Context, gilix.PARA) gilix.Rsp
+	ReadRawdata(context.Context, gilix.PARA) gilix.Rsp
+	WriteRawdata(context.Context, gilix.PARA) gilix.Rsp
+	ChipIO(context.Context, gilix.PARA) gilix.Rsp
+	Reset(context.Context, gilix.PARA) gilix.Rsp
+	ChipPower(context.Context, gilix.PARA) gilix.Rsp
+	ParseData(context.Context, gilix.PARA) gilix.Rsp
+}
+
 const (
 	LFS_SERVICE_CLASS_IDC = 2
 	IDC_SERVICE_OFFSET    = (LFS_SERVICE_CLASS_IDC * 100)
