@@ -239,7 +239,7 @@ func LFSMsgDecode(data []byte) gilix.Msg {
 	if m.Lhs == gilix.HS_NIL {
 		m.Lhs = GeneHs()
 	}
-	if m.Lid == gilix.ID_NIL {
+	if m.Lid == gilix.ID_NIL && m.Ltype != gilix.TYPE_CANCEL {
 		m.Lid = GeneId()
 	}
 	return m
@@ -480,6 +480,7 @@ type LFSDevCp interface {
 type NewDevpX func(phyini *kit.PhyIni, dc gilix.DevCp, ldc LFSDevCp) (LFSDevpX, LFSDevX)
 
 type LFSDevpX interface {
+	DevX() LFSDevX
 	PollFuncs() []gilix.Callee
 	OnInf(*LFSMsg, *LFSUsr) (qut gilix.QUEUET, cee gilix.Callee, pci int)
 	OnCmd(*LFSMsg, *LFSUsr) (qut gilix.QUEUET, cee gilix.Callee, chk bool, chg bool)
