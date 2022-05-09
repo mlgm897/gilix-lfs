@@ -1,7 +1,7 @@
 package lfs
 
-//ptr
-func lfsPara_PTR(msg *LFSMsg) {
+//PTR
+func lfsParaPTR(msg *LFSMsg) {
 	switch msg.Lcode {
 	case LFS_INF_PTR_QUERY_FORM:
 
@@ -9,8 +9,8 @@ func lfsPara_PTR(msg *LFSMsg) {
 	}
 }
 
-//idc
-func lfsPara_IDC(msg *LFSMsg) {
+//IDC
+func lfsParaIDC(msg *LFSMsg) {
 	switch msg.Lcode {
 	case LFS_CMD_IDC_READ_RAW_DATA:
 		msg.Lpara.DecodeVal(&DefInLFSIDCREADRAWDATA{})
@@ -27,8 +27,8 @@ func lfsPara_IDC(msg *LFSMsg) {
 	}
 }
 
-//pin
-func lfsPara_PIN(msg *LFSMsg) {
+//PIN
+func lfsParaPIN(msg *LFSMsg) {
 	switch msg.Lcode {
 	case LFS_CMD_PIN_LOCAL_DES:
 		break
@@ -37,10 +37,10 @@ func lfsPara_PIN(msg *LFSMsg) {
 
 func decodeLpara(msg *LFSMsg) {
 	if msg.Lcode >= PTR_SERVICE_OFFSET && msg.Lcode < PTR_SERVICE_OFFSET+100 {
-		lfsPara_PTR(msg)
+		lfsParaPTR(msg)
 	} else if msg.Lcode >= IDC_SERVICE_OFFSET && msg.Lcode < IDC_SERVICE_OFFSET+100 {
-		lfsPara_IDC(msg)
+		lfsParaIDC(msg)
 	} else if msg.Lcode >= PIN_SERVICE_OFFSET && msg.Lcode < PIN_SERVICE_OFFSET+100 {
-		lfsPara_PIN(msg)
+		lfsParaPIN(msg)
 	}
 }
