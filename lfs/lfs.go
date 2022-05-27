@@ -239,7 +239,7 @@ func LFSMsgDecode(data []byte) gilix.Msg {
 	if m.Lhs == gilix.HS_NIL {
 		m.Lhs = GeneHs()
 	}
-	if m.Lid == gilix.ID_NIL {
+	if m.Lid == gilix.ID_NIL && m.Ltype != gilix.TYPE_CANCEL {
 		m.Lid = GeneId()
 	}
 	return m
