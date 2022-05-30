@@ -650,7 +650,7 @@ type LFSPTRQUERYFIELD struct {
 }
 
 //LFS_INF_PTR_QUERY_FIELD Out
-type DefOutPTRQUERYFIELD []LFSFRMFIELD
+type DefOutPTRQUERYFIELD []*LFSFRMFIELD
 type LFSFRMFIELD struct {
 	FieldName           string
 	IndexCount          uint
