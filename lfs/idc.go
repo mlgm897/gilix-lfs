@@ -443,9 +443,9 @@ const (
 	LFS_ERR_IDC_POWERSAVEMEDIAPRESENT = (-(IDC_SERVICE_OFFSET + 20))
 	LFS_ERR_IDC_CARDPRESENT           = (-(IDC_SERVICE_OFFSET + 21))
 	LFS_ERR_IDC_POSITIONINVALID       = (-(IDC_SERVICE_OFFSET + 22))
-	LFS_ERR_IDC_NORETRACTBIN          = (-(IDC_SERVICE_OFFSET + 21))
-	LFS_ERR_IDC_RETRACTBINFULL        = (-(IDC_SERVICE_OFFSET + 22))
-	LFS_ERR_IDC_CARD_NOTFOUND         = (-(IDC_SERVICE_OFFSET + 23))
+	LFS_ERR_IDC_NORETRACTBIN          = (-(IDC_SERVICE_OFFSET + 23))
+	LFS_ERR_IDC_RETRACTBINFULL        = (-(IDC_SERVICE_OFFSET + 24))
+	LFS_ERR_IDC_CARD_NOTFOUND         = (-(IDC_SERVICE_OFFSET + 25))
 	LFS_ERR_IDC_MEDIAEXIST            = (-(IDC_SERVICE_OFFSET + 52))
 	LFS_ERR_IDC_MEDIARETRACTJAM       = (-(IDC_SERVICE_OFFSET + 53))
 	LFS_ERR_IDC_SLOTFULL              = (-(IDC_SERVICE_OFFSET + 54))
@@ -467,7 +467,7 @@ type LFSIDCSTATUS struct {
 	Security              uint
 	UsCards               uint
 	ChipPower             uint
-	Extra                 []byte
+	Extra                 []string
 	GuidLights            [LFS_IDC_GUIDLIGHTS_SIZE]uint
 	ChipModule            uint
 	MagRead_Module        uint
@@ -493,7 +493,7 @@ type LFSIDCCAPS struct {
 	ReadWriteAccessFollowingEject int
 	WriteMode                     uint
 	ChipPower                     uint
-	Extra                         []byte
+	Extra                         []string
 	DIPMode                       uint
 	MemoryChipProtocols           []uint
 	GuidLights                    [LFS_IDC_GUIDLIGHTS_SIZE]uint
@@ -509,9 +509,9 @@ type LFSIDCFORM struct {
 	Action               uint
 	Tracks               string
 	Secure               int
-	Track1Fields         []byte
-	Track2Fields         []byte
-	Track3Fields         []byte
+	Track1Fields         []string
+	Track2Fields         []string
+	Track3Fields         []string
 }
 
 //自定义LFS_INF_IDC_QUERY_IFM_IDENTIFIER Out
@@ -528,16 +528,14 @@ type DefInLFSIDCQUERYFORM struct {
 }
 
 //LFS_INF_IDC_FORM_LIST Out
-type DefOutLFSIDCFORMLIST struct {
-	FormList []byte
-}
+type DefOutLFSIDCFORMLIST []string
 
 /*=================================================================*/
 /* IDC Execute Command Structures */
 /*=================================================================*/
 type LFSIDCWRITETRACK struct {
 	FormName    string
-	TrackData   []byte
+	TrackData   string
 	WriteMethod uint
 }
 
@@ -559,13 +557,13 @@ type DefOutLFSIDCREADRAWDATA []LFSIDCCARDDATA
 type LFSIDCCARDDATA struct {
 	DataSource  uint
 	Status      uint
-	Data_Length uint
+	DataLength  uint
 	Data        []byte
 	WriteMethod uint
 }
 
 type LFSIDCCHIPIO struct {
-	Chip_Protocol  uint
+	ChipProtocol   uint
 	ChipDataLength uint
 	ChipData       []byte
 }
@@ -660,12 +658,12 @@ type LFSIDCCLEARRETRACTCARD struct {
 }
 
 type LFSIDCMCRSTATUS struct {
-	Device     uint
-	Slots      uint
-	Retain_Bin uint
-	UseSlots   uint
-	Shutter    uint
-	Extra      []byte
+	Device    uint
+	Slots     uint
+	RetainBin uint
+	UseSlots  uint
+	Shutter   uint
+	Extra     []string
 }
 
 type LFSIDCMCRCAPS struct {
@@ -673,7 +671,7 @@ type LFSIDCMCRCAPS struct {
 	Type        uint
 	BigSlots    uint
 	NormalSlots uint
-	Extra       []byte
+	Extra       []string
 }
 
 type LFSIDCSLOTUNITINFO struct {
@@ -697,7 +695,7 @@ type LFSIDCRETAINSLOTSTARTIN struct {
 }
 
 type LFSIDCRETAINSLOTSTARTOUT struct {
-	lpszData string
+	Data string
 }
 
 type LFSIDCRETAINSLOT struct {
@@ -706,12 +704,12 @@ type LFSIDCRETAINSLOT struct {
 }
 
 type LFSIDCEJECTSLOT struct {
-	Type    uint
+	MCRType uint
 	CmdData string
 }
 
 type LFSIDCEJECTSLOTOUT struct {
-	Type    uint
+	MCRType uint
 	CmdData string
 }
 
