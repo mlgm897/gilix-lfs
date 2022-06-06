@@ -180,6 +180,8 @@ type LFSAux struct {
 // LFSMsg
 /* ********************************************************** */
 
+type LFSMsgDecodeLpara func(msg *LFSMsg) bool
+
 type LFSMsg struct {
 	Lhs        gilix.HS      `json:"HS"`
 	Lid        gilix.ID      `json:"ID"`
@@ -491,9 +493,6 @@ type LFSDevpX interface {
 // LFSDevX
 /* ********************************************************** */
 
-// NewXXX , e.g. NewMTCR
-type NewDevX func(phyini *kit.PhyIni, dc gilix.DevCp, ldc LFSDevCp) LFSDevX
-
 type LFSDevX interface {
 	Init()
 	Fini()
@@ -506,3 +505,4 @@ type LFSDevX interface {
 /* ********************************************************** */
 
 var NewDevpXCb NewDevpX = nil
+var LFSMsgDecodeLparaCb LFSMsgDecodeLpara = nil
