@@ -11,11 +11,26 @@
 - 错误码、命令码使用 const 定义
 - 命名、大小写规则保持与 LFS 一致
 
-##### 参数
+##### 参数规则
 
-- 结构体：保持 C 的结构体大写命名体系，例如 ```LFSIDCCARDDATA```
-- 数组：定义新的 slice 类型，并保持与 LFS 一致的命名风格，例如 ``` type xxx []LFSIDCCARDDATA``` ，又如 ```type xxx []string```
-- 简单类型：定义新的结构体进行包装，并保持与 LFS 一致的命名风格
+- 结构体
+  - 保持 C 的结构体大写命名体系
+  - 例如 ```LFSIDCCARDDATA```
+- 数组
+  - 定义新的 slice 类型
+  - 若数组元素是结构体，则建议定义定义为指针
+  - 例如 ```type xxx []*LFSIDCCARDDATA``` ，又如 ```type xxx []string```
+- 简单类型
+  - 定义新的结构体类型进行包装
+  - 例如 ```type xxx struct { sth string }```
+
+##### 新类型命名
+
+- 如果是输入，则前缀 ```DefIn```
+- 如果是输出，则前缀 ```DefOut```
+- 加上命令名称，例如命令码是 ```LFS_CMD_IDC_READ_RAW_DATA``` ，则缩写为 ```LFSIDCREADRAWDATA```
+- 例如，```type DefInLFSIDCWRITERAWDATA []*LFSIDCCARDDATA```
+- 又如，```type DefOutLFSIDCREADRAWDATA []*LFSIDCCARDDATA```
 
 ##### 变量类型
 
