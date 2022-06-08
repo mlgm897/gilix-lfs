@@ -209,7 +209,7 @@ type LFSCAMSTATUS struct {
 	Media    [LFS_CAM_CAMERAS_SIZE]uint
 	Cameras  [LFS_CAM_CAMERAS_SIZE]uint
 	Pictures [LFS_CAM_CAMERAS_SIZE]uint
-	Extra    []byte
+	Extra    []string
 }
 
 type LFSCAMCAPS struct {
@@ -220,8 +220,8 @@ type LFSCAMCAPS struct {
 	CamData       uint
 	MaxDataLength uint
 	CharSupport   uint
-	Extra         []byte
-	PictureFile   int
+	Extra         []string
+	PictureFile   uint
 }
 
 /*=================================================================*/
@@ -245,7 +245,7 @@ type LFSCAMDISP struct {
 	Y               uint
 	Width           uint
 	Height          uint
-	Wnd             uint
+	Hwnd            string
 	Hpixel          uint
 	Vpixel          uint
 	TextData        string
@@ -260,7 +260,7 @@ type LFSCAMDISP struct {
 	EncKey          string
 	KeyEncKey       LFSXCAMDATA
 	Algorithm       uint
-	Extra           []byte
+	Extra           []string
 }
 
 type LFSCAMTAKEPICTEX struct {
@@ -269,19 +269,19 @@ type LFSCAMTAKEPICTEX struct {
 	UNICODECamData []byte
 	PictureFile    string
 	ScanSize       uint
-	Extra          []byte
+	Extra          []string
 }
 
 type LFSCAMFACECOMPARISON struct {
 	Camera       uint
 	PictureFileA string
 	PictureFileB string
-	Extra        []byte
+	Extra        []string
 }
 
 type LFSCAMFACECOMPARISONOUT struct {
 	Score uint
-	Extra []byte
+	Extra []string
 }
 
 type LFSCAMDISPHC struct {
@@ -291,7 +291,7 @@ type LFSCAMDISPHC struct {
 	Height      uint
 	X           uint
 	Y           uint
-	Wnd         uint
+	Hwnd        string
 	Hpixel      uint
 	Vpixel      uint
 	RotateAngle uint
@@ -299,7 +299,7 @@ type LFSCAMDISPHC struct {
 	CropType    uint
 	CropSize    uint
 	TexData     string
-	Extra       []byte
+	Extra       []string
 }
 
 type LFSCAMRECORD struct {
@@ -310,7 +310,7 @@ type LFSCAMRECORD struct {
 	Fps         uint
 	AudioOption uint
 	RecordFile  string
-	Extra       []byte
+	Extra       []string
 }
 
 type LFSCAMIMPORT struct {
@@ -322,25 +322,25 @@ type LFSCAMIMPORT struct {
 	Algorithm     uint
 	KeyCheckMode  uint
 	KeyCheckValue LFSXCAMDATA
-	Extra         []byte
+	Extra         []string
 }
 
 type LFSCAMGETSIGNATURE struct {
 	Camera      uint
 	PictureFile string
 	TrackFile   string
-	Extra       []byte
+	Extra       []string
 }
 
 type LFSCAMGETSIGNATUREOUT struct {
 	Status     uint
 	DataLength uint
 	Data       []byte
-	Extra      []byte
+	Extra      []string
 }
 
 //自定义
 //LFS_USRE_CAM_MEDIATHRESHOLD
-type DefEventLFSCAMUSREMEDIATHRESHOLD struct {
+type DefUsreLFSCAMMEDIATHRESHOLD struct {
 	MediaThreshold uint
 }

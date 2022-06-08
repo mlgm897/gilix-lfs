@@ -172,19 +172,19 @@ type LFSBCRSTATUS struct {
 	Device                uint
 	BcrScanner            uint
 	GuidLights            [LFS_BCR_GUIDLIGHTS_SIZE]uint
-	Extra                 []byte
+	Extra                 []string
 	DevicePosition        uint
 	PowerSaveRecoveryTime uint
 }
 
 type LFSBCRCAPS struct {
 	Class                uint
-	Compound             int
-	CanFilterSymbologies int
-	Symbologies          []uint
+	Compound             uint
+	CanFilterSymbologies uint
+	Symbologies          uint
 	GuidLights           [LFS_BCR_GUIDLIGHTS_SIZE]uint
-	Extra                []byte
-	PowerSaveControl     int
+	Extra                []string
+	PowerSaveControl     uint
 }
 
 /*=================================================================*/
@@ -196,7 +196,7 @@ type LFSBCRXDATA struct {
 }
 
 type LFSBCRREADINPUT struct {
-	Symbologies []uint
+	Symbologies uint
 }
 type DefOutLFSBCRREADOUTPUT []LFSBCRREADOUTPUT
 type LFSBCRREADOUTPUT struct {
@@ -211,7 +211,7 @@ type LFSBCRSETGUIDLIGHT struct {
 }
 
 type LFSBCRPOWERSAVECONTROL struct {
-	usMax_Power_Save_Recovery_Time uint
+	MaxPowerSaveRecoveryTime uint
 }
 
 /*=================================================================*/

@@ -205,21 +205,21 @@ type LFSCRDSTATUS struct {
 	Transport             uint
 	Media                 uint
 	Shutter               uint
-	Extra                 []byte
+	Extra                 []string
 	GuidLights            [LFS_CRD_GUIDLIGHTS_SIZE]uint
 	DevicePosition        uint
 	PowerSaveRecoveryTime uint
 }
 type LFSCRDCAPS struct {
 	Class            uint
-	Compound         int
+	Compound         uint
 	PowerOnOption    uint
 	PowerOffOption   uint
-	CardTakenSensor  int
+	CardTakenSensor  uint
 	DispenseTo       uint
-	Extra            []byte
+	Extra            []string
 	GuidLights       [LFS_CRD_GUIDLIGHTS_SIZE]uint
-	PowerSaveControl int
+	PowerSaveControl uint
 }
 
 type LFSCRDCARDUNIT struct {
@@ -231,7 +231,7 @@ type LFSCRDCARDUNIT struct {
 	RetainCount    uint
 	Threshold      uint
 	Status         uint
-	HardwareSensor int
+	HardwareSensor uint
 }
 
 type LFSCRDCUINFO struct {
@@ -241,23 +241,23 @@ type LFSCRDCUINFO struct {
 
 type LFSCRDSLOTINFO struct {
 	RealTotalSlotCount uint
-	SlotStatus         [LFS_CRD_SLOT_SIZE]uint
+	SlotStatus         []uint
 }
 
 /*=================================================================*/
 /* CRD Execute Command Structures */
 /*=================================================================*/
 type LFSCRDDISPENSE struct {
-	usNumber uint
-	bPresent int
+	Number  uint
+	Present uint
 }
 
 type LFSCRDRETAINCARD struct {
-	usNumber uint
+	Number uint
 }
 
 type LFSCRDRESET struct {
-	usAction uint
+	Action uint
 }
 
 type LFSCRDSETGUIDLIGHT struct {
@@ -275,13 +275,13 @@ type LFSCRDSLOTDEPOSIT struct {
 
 type LFSCRDSLOTDISPENSE struct {
 	SlotNo  uint
-	Present int
+	Present uint
 }
 
 //自定义
 //LFS_CMD_CRD_MOVE_CARD
 type DefInLFSCRDMOVECARD struct {
-	MoveOptionIn uint
+	MoveOption uint
 }
 
 /*=================================================================*/

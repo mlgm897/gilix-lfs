@@ -574,17 +574,17 @@ type LFSPTRSTATUS struct {
 type LFSPTRCAPS struct {
 	Class                 uint
 	Type                  uint
-	Compound              int
+	Compound              uint
 	DevResolution         uint
 	Readform              uint
 	Writeform             uint
 	DevExtents            uint
 	DevControl            uint
 	MaxMediaOnStacker     uint
-	AcceptMedia           int
-	MultiPage             int
+	AcceptMedia           uint
+	MultiPage             uint
 	PaperSources          uint
-	MediaTaken            int
+	MediaTaken            uint
 	RetractBins           uint
 	MaxRetract            []uint
 	ImageType             uint
@@ -593,14 +593,14 @@ type LFSPTRCAPS struct {
 	CodelineFormat        uint
 	ImageSource           uint
 	CharSupport           uint
-	DispensePaper         int
+	DispensePaper         uint
 	Extra                 []string
 	GuidLights            [LFS_PTR_GUIDLIGHTS_SIZE]uint
 	Printer               string
-	MediaPresented        int
+	MediaPresented        uint
 	AutoRetractPeriod     uint
-	RetractToTransport    int
-	PowerSaveControl      int
+	RetractToTransport    uint
+	PowerSaveControl      uint
 }
 
 type LFSFRMHEADER struct {
@@ -650,7 +650,7 @@ type LFSPTRQUERYFIELD struct {
 }
 
 //LFS_INF_PTR_QUERY_FIELD Out
-type DefOutPTRQUERYFIELD []*LFSFRMFIELD
+type DefOutLFSPTRQUERYFIELD []LFSFRMFIELD
 type LFSFRMFIELD struct {
 	FieldName           string
 	IndexCount          uint
@@ -671,28 +671,28 @@ type LFSPTRXDATA struct {
 }
 
 type LFSPTRCODELINEMAPPTRG struct {
-	wCodeline_Format uint
+	CodelineFormat uint
 }
 
 //自定义
 //LFS_INF_PTR_QUERY_FORM In
-type DefInPTRQUERYFORM struct {
+type DefInLFSPTRQUERYFORM struct {
 	FormName string
 }
 
 //LFS_INF_PTR_QUERY_MEDIA In
-type DefInPTRQUERYMEDIA struct {
+type DefInLFSPTRQUERYMEDIA struct {
 	MediaName string
 }
 
 //LFS_INF_PTR_FORM_LIST Out
-type DefOutPTRFORMLIST []string
+type DefOutLFSPTRFORMLIST []string
 
 //LFS_INF_PTR_MEDIA_LIST Out
-type DefOutPTRMEDIALIST []string
+type DefOutLFSPTRMEDIALIST []string
 
 //LFS_CMD_PTR_RETRACT_MEDIA Out
-type DefOutRETRACTMEDIA struct {
+type DefOutLFSPTRRETRACTMEDIA struct {
 	BinNumber uint
 }
 
@@ -722,7 +722,7 @@ type LFSPTRREADFORM struct {
 
 type LFSPTRREADFORMOUT struct {
 	Fields        []string
-	UnicodeFields [][]byte //LPWSTR
+	UnicodeFields [][]byte
 }
 
 type LFSPTRRAWDATA struct {
@@ -754,32 +754,32 @@ type LFSPTRIMAGEREQUEST struct {
 }
 
 //自定义LFS_CMD_PTR_CONTROL_MEDIA In
-type DefInCONTROLMEDIA struct {
+type DefInLFSPTRCONTROLMEDIA struct {
 	MediaControl uint
 }
 
 //LFS_CMD_PTR_RESET_COUNT In
-type DefInRESETCOUNT struct {
+type DefInLFSPTRRESETCOUNT struct {
 	BinNumber uint
 }
 
 //LFS_CMD_PTR_RETRACT_MEDIA In
-type DefInRETRACTMEDIA struct {
+type DefInLFSPTRRETRACTMEDIA struct {
 	BinNumber uint
 }
 
 //LFS_CMD_PTR_DISPENSE_PAPER
-type DefInDISPENSEPAPER struct {
+type DefInLFSPTRDISPENSEPAPER struct {
 	PaperSource uint
 }
 
 //自定义LFS_CMD_PTR_READ_IMAGE Out
 type DefOutLFSPTRIMAGE []LFSPTRIMAGE
 type LFSPTRIMAGE struct {
-	Image_Source uint
-	Status       uint
-	Data_Length  uint
-	Data         []byte
+	ImageSource uint
+	Status      uint
+	DataLength  uint
+	Data        []byte
 }
 
 type LFSPTRRESET struct {
@@ -800,7 +800,7 @@ type LFSPTRPRINTRAWFILE struct {
 
 type LFSPTRLOADDEFINITION struct {
 	FileName  string
-	Overwrite int
+	Overwrite uint
 }
 
 type LFSPTRSUPPLYREPLEN struct {
@@ -880,7 +880,7 @@ type LFSPTRIMAGEREQUESTEX struct {
 	EncryptMode            uint
 	Key                    string
 	Feature                string
-	Extra                  string
+	Extra                  []string
 }
 
 type LFSPTRIMAGEEX struct {
@@ -899,13 +899,13 @@ type LFSPTRCODELINEMAPPTRGOUT struct {
 
 type LFSPTRIMPORTKEY struct {
 	Key           string
-	Enc_Key       string
+	EncKey        string
 	Value         LFSPTRXDATA
 	ControlVector LFSPTRXDATA
 	Use           uint
 	KeyCheckMode  uint
 	KeyCheckValue LFSPTRXDATA
-	Extra         []byte
+	Extra         []string
 }
 
 type LFSPTRMEDIAEXT struct {
@@ -915,21 +915,21 @@ type LFSPTRMEDIAEXT struct {
 
 //自定义
 //LFS_EXEE_PTR_NOMEDIA
-type DefEventEXEENOMEDIA struct {
+type DefExeeLFSPTRNOMEDIA struct {
 	UserPrompt uint
 }
 
 //LFS_USRE_PTR_TONERTHRESHOLD
-type DefEventUSRETONERTHRESHOLD struct {
+type DefUsreLFSPTRTONERTHRESHOLD struct {
 	TonerThreshold uint
 }
 
 //LFS_USRE_PTR_LAMPTHRESHOLD
-type DefEventUSRELAMPTHRESHOLD struct {
+type DefUsreLFSPTRLAMPTHRESHOLD struct {
 	LampThreshold uint
 }
 
 //LFS_USRE_PTR_INKTHRESHOLD
-type DefEventUSREINKTHRESHOLD struct {
+type DefUsreLFSPTRINKTHRESHOLD struct {
 	InkThreshold uint
 }

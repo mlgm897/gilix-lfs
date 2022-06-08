@@ -256,7 +256,7 @@ const (
 /* values of LFSIDCCAPS.wSecType */
 
 const (
-	/*	LFS_IDC_SECNOTSUPP = 1*/
+	//LFS_IDC_SECNOTSUPP = 1  LFSIDCSTATUS.wSecurity 重复
 	LFS_IDC_SECMMBOX = 2
 	LFS_IDC_SECCIM86 = 3
 )
@@ -470,8 +470,8 @@ type LFSIDCSTATUS struct {
 	Extra                 []string
 	GuidLights            [LFS_IDC_GUIDLIGHTS_SIZE]uint
 	ChipModule            uint
-	MagRead_Module        uint
-	MagWrite_Module       uint
+	MagReadModule         uint
+	MagWriteModule        uint
 	FrontImageModule      uint
 	BackImageModule       uint
 	DevicePosition        uint
@@ -481,7 +481,7 @@ type LFSIDCSTATUS struct {
 type LFSIDCCAPS struct {
 	Class                         uint
 	Type                          uint
-	Compound                      int
+	Compound                      uint
 	ReadTracks                    uint
 	WriteTracks                   uint
 	ChipProtocols                 uint
@@ -489,8 +489,8 @@ type LFSIDCCAPS struct {
 	SecType                       uint
 	PowerOnOption                 uint
 	PowerOffOption                uint
-	FluxSensorProgrammable        int
-	ReadWriteAccessFollowingEject int
+	FluxSensorProgrammable        uint
+	ReadWriteAccessFollowingEject uint
 	WriteMode                     uint
 	ChipPower                     uint
 	Extra                         []string
@@ -498,7 +498,7 @@ type LFSIDCCAPS struct {
 	MemoryChipProtocols           []uint
 	GuidLights                    [LFS_IDC_GUIDLIGHTS_SIZE]uint
 	EjectPosition                 uint
-	PowerSaveControl              int
+	PowerSaveControl              uint
 }
 
 type LFSIDCFORM struct {
@@ -508,34 +508,45 @@ type LFSIDCFORM struct {
 	FieldSeparatorTrack3 byte
 	Action               uint
 	Tracks               string
-	Secure               int
+	Secure               uint
 	Track1Fields         []string
 	Track2Fields         []string
 	Track3Fields         []string
 }
 
-//自定义LFS_INF_IDC_QUERY_IFM_IDENTIFIER Out
-type DefOutLFSIDCIFMIDENTIFIER []LFSIDCIFMIDENTIFIER
+//自定义 LFS_INF_IDC_QUERY_IFM_IDENTIFIER Out
+type DefOutLFSIDCQUERYIFMIDENTIFIER []LFSIDCIFMIDENTIFIER
+
 type LFSIDCIFMIDENTIFIER struct {
 	IFMAuthority  uint
 	IFMIdentifier string
 }
 
-//自定义
-//LFS_INF_IDC_QUERY_FORM In
+//自定义 LFS_INF_IDC_FORM_LIST Out
+type DefOutLFSIDCFORMLIST []string
+
+//自定义 LFS_INF_IDC_QUERY_FORM In
 type DefInLFSIDCQUERYFORM struct {
 	FormName string
 }
 
-//LFS_INF_IDC_FORM_LIST Out
-type DefOutLFSIDCFORMLIST []string
-
 /*=================================================================*/
 /* IDC Execute Command Structures */
 /*=================================================================*/
+
+//LFS_CMD_IDC_READ_TRACK In
+type DefInLFSIDCREADTRACK struct {
+	FormName string
+}
+
+//LFS_CMD_IDC_READ_TRACK Out
+type DefOutLFSIDCREADTRACk struct {
+	TrackData [][]string
+}
+
 type LFSIDCWRITETRACK struct {
 	FormName    string
-	TrackData   string
+	TrackData   []string
 	WriteMethod uint
 }
 
@@ -549,11 +560,14 @@ type LFSIDCSETKEY struct {
 	KeyValue []byte
 }
 
-//自定义LFS_CMD_IDC_WRITE_RAW_DATA In
-type DefInLFSIDCWRITERAWDATA []LFSIDCCARDDATA
+//自定义LFS_CMD_IDC_READ_RAW_DATA In
+type DefInLFSIDCREADRAWDATA struct {
+	ReadData uint
+}
 
 //自定义LFS_CMD_IDC_READ_RAW_DATA Out
 type DefOutLFSIDCREADRAWDATA []LFSIDCCARDDATA
+
 type LFSIDCCARDDATA struct {
 	DataSource  uint
 	Status      uint
@@ -562,19 +576,38 @@ type LFSIDCCARDDATA struct {
 	WriteMethod uint
 }
 
+//自定义LFS_CMD_IDC_WRITE_RAW_DATA In
+type DefInLFSIDCWRITERAWDATA []LFSIDCCARDDATA
+
 type LFSIDCCHIPIO struct {
 	ChipProtocol   uint
 	ChipDataLength uint
 	ChipData       []byte
 }
 
+//自定义LFS_CMD_IDC_RESET In
+type DefInLFSIDCRESET struct {
+	ResetIn uint
+}
+
+//自定义LFS_CMD_IDC_CHIP_POWER In
+type DefInLFSIDCCHIPPOWER struct {
+	ChipPower uint
+}
+
 type LFSIDCCHIPPOWEROUT struct {
 	ChipDataLength uint
 	ChipData       []byte
 }
+
 type LFSIDCPARSEDATA struct {
 	FormName string
 	CardData []LFSIDCCARDDATA
+}
+
+//自定义LFS_CMD_IDC_PARSE_DATA Out
+type DefOutLFSIDCPARSEDATA struct {
+	TrackData [][]string
 }
 
 type LFSIDCSETGUIDLIGHT struct {
@@ -590,37 +623,6 @@ type LFSIDCPOWERSAVECONTROL struct {
 	MaxPowerSaveRecoveryTime uint
 }
 
-//自定义
-//LFS_CMD_IDC_READ_RAW_DATA In
-type DefInLFSIDCREADRAWDATA struct {
-	ReadDataIn uint
-}
-
-//LFS_CMD_IDC_RESET In
-type DefInLFSIDCRESET struct {
-	ResetIn uint
-}
-
-//LFS_CMD_IDC_READ_TRACK In
-type DefInLFSIDCREADTRACK struct {
-	FormName string
-}
-
-//LFS_CMD_IDC_CHIP_POWER In
-type DefInLFSIDCCHIPPOWER struct {
-	ChipPower uint
-}
-
-//LFS_CMD_IDC_PARSE_DATA Out
-type DefOutLFSIDCPARSEDATA struct {
-	TrackData []byte
-}
-
-//LFS_CMD_IDC_READ_TRACK Out
-type DefOutLFSIDCREADTRACk struct {
-	TrackData []byte
-}
-
 /*=================================================================*/
 /* IDC Message Structures */
 /*=================================================================*/
@@ -628,7 +630,7 @@ type DefOutLFSIDCREADTRACk struct {
 type LFSIDCTRACKEVENT struct {
 	Status uint
 	Track  string
-	Data   string
+	Data   []byte
 }
 
 type LFSIDCCARDACT struct {
@@ -642,6 +644,16 @@ type LFSIDCDEVICEPOSITION struct {
 
 type LFSIDCPOWERSAVECHANGE struct {
 	PowerSaveRecoveryTime uint
+}
+
+//自定义LFS_SRVE_IDC_MEDIADETECTED
+type DefSrveLFSIDCMEDIADETECTED struct {
+	ResetOut uint
+}
+
+//自定义LFS_USRE_IDC_RETAINBINTHRESHOLD
+type DefUsreLFSIDCRETAINBINTHRESHOLD struct {
+	RetainBin uint
 }
 
 type LFSIDCRETRACTCARD struct {
@@ -718,15 +730,4 @@ type LFSIDCRETAINSLOTOUT struct {
 	RetainTime string
 	Position   string
 	Status     uint
-}
-
-//自定义
-//LFS_SRVE_IDC_MEDIADETECTED
-type DefEventLFSIDCSRVEMEDIADETECTED struct {
-	ResetOut uint
-}
-
-//LFS_USRE_IDC_RETAINBINTHRESHOLD
-type DefEventLFSIDCUSRERETAINBINTHRESHOLD struct {
-	RetainBin uint
 }

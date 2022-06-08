@@ -627,7 +627,7 @@ type LFSXDATA struct {
 type LFSPINSTATUS struct {
 	Device                uint
 	EncStat               uint
-	Extra                 []byte
+	Extra                 []string
 	GuidLights            [LFS_PIN_GUIDLIGHTS_SIZE]uint
 	AutoBeepMode          uint
 	CertificateState      uint
@@ -637,36 +637,42 @@ type LFSPINSTATUS struct {
 type LFSPINCAPS struct {
 	Class                   uint
 	Type                    uint
-	Compound                int
-	Key_Num                 uint
+	Compound                uint
+	KeyNum                  uint
 	Algorithms              uint
 	PinFormats              uint
 	DerivationAlgorithms    uint
 	PresentationAlgorithms  uint
 	Display                 uint
-	IDConnect               int
+	IDConnect               uint
 	IDKey                   uint
 	ValidationAlgorithms    uint
 	KeyCheckModes           uint
-	Extra                   []byte
+	Extra                   []string
 	GuidLights              [LFS_PIN_GUIDLIGHTS_SIZE]uint
-	PINCanPersistAfterUse   int
+	PINCanPersistAfterUse   uint
 	AutoBeep                uint
 	HSMVendor               string
-	HSMJournaling           int
+	HSMJournaling           uint
 	RSAAuthenticationScheme uint
 	RSASignatureAlgorithm   uint
 	RSACryptAlgorithm       uint
 	RSAKeyCheckMode         uint
 	SignatureScheme         uint
-	EMVImport_Schemes       []uint
+	EMVImportSchemes        []uint
 	EMVHashAlgorithm        uint
-	KeyImportThroughParts   int
+	KeyImportThroughParts   uint
 	ENCIOProtocols          uint
-	TypeCombined            int
-	SetPinblockDataRequired int
+	TypeCombined            uint
+	SetPinblockDataRequired uint
 	KeyBlockImportFormats   uint
-	PowerSaveControl        int
+	PowerSaveControl        uint
+}
+
+//自定义
+//LFS_INF_PIN_KEY_DETAIL In
+type DefInLFSPINKEYDETAIL struct {
+	KeyName string
 }
 
 //自定义
@@ -675,8 +681,14 @@ type DefOutLFSPINKEYDETAIL []LFSPINKEYDETAIL
 type LFSPINKEYDETAIL struct {
 	KeyName        string
 	Use            uint
-	Loaded         int
+	Loaded         uint
 	KeyBlockHeader LFSXDATA
+}
+
+//自定义
+//LFS_INF_PIN_FUNCKEY_DETAIL In
+type DefInLFSPINFUNCKEYDETAIL struct {
+	FDKMask uint
 }
 
 type LFSPINFDK struct {
@@ -686,9 +698,15 @@ type LFSPINFDK struct {
 }
 
 type LFSPINFUNCKEYDETAIL struct {
-	Func_Mask   uint
-	Number_FDKs uint
-	FDKs        []LFSPINFDK
+	FuncMask   uint
+	NumberFDKs uint
+	FDKs       []LFSPINFDK
+}
+
+//自定义
+//LFS_INF_PIN_KEY_DETAILEX In
+type DefInLFSPINKEYDETAILEX struct {
+	KeyName string
 }
 
 //自定义
@@ -700,7 +718,7 @@ type LFSPINKEYDETAILEX struct {
 	Version        uint
 	ActivatingDate [4]uint
 	ExpiryDate     [4]uint
-	Loaded         int
+	Loaded         uint
 	KeyBlockHeader LFSXDATA
 }
 
@@ -725,22 +743,6 @@ type LFSPINSECUREKEYDETAIL struct {
 	Columns       uint
 	Rows          uint
 	HexKeys       []LFSPINHEXKEYS
-}
-
-//自定义
-//LFS_INF_PIN_KEY_DETAIL In
-type DefInLFSPINKEYDETAIL struct {
-	KeyName string
-}
-
-//LFS_INF_PIN_KEY_DETAILEX In
-type DefInLFSPINKEYDETAILEX struct {
-	KeyName string
-}
-
-//LFS_INF_PIN_FUNCKEY_DETAIL In
-type DefInLFSPINFUNCKEYDETAIL struct {
-	FDKMask uint
 }
 
 /*=================================================================*/
@@ -780,8 +782,8 @@ type LFSPINDERIVE struct {
 type LFSPINGETPIN struct {
 	MinLen        uint
 	MaxLen        uint
-	AutoEnd       int
-	Echo          int
+	AutoEnd       uint
+	Echo          uint
 	ActiveFDKs    uint
 	ActiveKeys    uint
 	TerminateFDKs uint
@@ -799,10 +801,16 @@ type LFSPINLOCALDES struct {
 	Padding        uint
 	MaxPIN         uint
 	ValDigits      uint
-	NoLeadingZero  int
+	NoLeadingZero  uint
 	Key            string
 	KeyEncKey      LFSXDATA
 	DecTable       string
+}
+
+//自定义
+//LFS_CMD_PIN_LOCAL_DES Out
+type DefOutLFSPINLOCALDES struct {
+	Result uint
 }
 
 type LFSPINCREATEOFFSET struct {
@@ -813,6 +821,12 @@ type LFSPINCREATEOFFSET struct {
 	Key            string
 	KeyEncKey      LFSXDATA
 	DecTable       string
+}
+
+//自定义
+//LFS_CMD_PIN_CREATE_OFFSET Out
+type DefOutLFSPINCREATEOFFSET struct {
+	Offset string
 }
 
 type LFSPINLOCALEUROCHEQUE struct {
@@ -827,6 +841,12 @@ type LFSPINLOCALEUROCHEQUE struct {
 	DecTable       string
 }
 
+//自定义
+//LFS_CMD_PIN_LOCAL_EUROCHEQUE Out
+type DefOutLFSPINLOCALEUROCHEQUE struct {
+	Result uint
+}
+
 type LFSPINLOCALVISA struct {
 	PAN       string
 	PVV       string
@@ -835,12 +855,18 @@ type LFSPINLOCALVISA struct {
 	KeyEncKey LFSXDATA
 }
 
+//自定义
+//LFS_CMD_PIN_LOCAL_EUROCHEQUE Out
+type DefOutLFSPINLOCALVISA struct {
+	Result uint
+}
+
 type LFSPINPRESENTIDC struct {
 	PresentAlgorithm uint
 	ChipProtocol     uint
 	ChipDataLength   uint
 	ChipData         []byte
-	AlgorithmData    []byte //LPVOID
+	AlgorithmData    LFSPINPRESENTCLEAR
 }
 
 type LFSPINPRESENTRESULT struct {
@@ -865,7 +891,7 @@ type LFSPINBLOCK struct {
 
 type LFSPINGETDATA struct {
 	MaxLen        uint
-	AutoEnd       int
+	AutoEnd       uint
 	ActiveFDKs    uint
 	ActiveKeys    uint
 	TerminateFDKs uint
@@ -879,7 +905,7 @@ type LFSPINKEY struct {
 
 type LFSPINDATA struct {
 	Keys       uint
-	Pin_Keys   []LFSPINKEY
+	PinKeys    []LFSPINKEY
 	Completion uint
 }
 
@@ -890,6 +916,12 @@ type LFSPININIT struct {
 
 type LFSPINLOCALBANKSYS struct {
 	ATMVAC LFSXDATA
+}
+
+//自定义
+//LFS_CMD_PIN_LOCAL_BANKSYS Out
+type DefOutLFSPINLOCALBANKSYS struct {
+	Result uint
 }
 
 type LFSPINBANKSYSIO struct {
@@ -916,13 +948,13 @@ type LFSPINIMPORTKEYEX struct {
 type LFSPINENCIO struct {
 	Protocol   uint
 	DataLength uint
-	Data       []byte //LPVOID
+	//Data       interface{} //根据不同的 Protocol而不同
 }
 
 /* LFS_CMD_PIN_SECUREKEY_ENTRY command input structure */
 type LFSPINSECUREKEYENTRY struct {
 	KeyLen           uint
-	AutoEnd          int
+	AutoEnd          uint
 	ActiveFDKs       uint
 	ActiveKeys       uint
 	TerminateFDKs    uint
@@ -1031,7 +1063,7 @@ type LFSPINREPLACECERTIFICATEOUTPUT struct {
 }
 
 type LFSPINSTARTKEYEXCHANGE struct {
-	Random_Item LFSXDATA
+	RandomItem LFSXDATA
 }
 
 type LFSPINIMPORTRSAENCIPHEREDPKCS7KEY struct {
@@ -1086,7 +1118,7 @@ type LFSPINSETGUIDLIGHT struct {
 }
 
 type LFSPINMAINTAINPIN struct {
-	MaintainPIN int
+	MaintainPIN uint
 }
 
 type LFSPINHSMINFO struct {
@@ -1182,13 +1214,13 @@ type LFSPINCHNSIGN struct {
 }
 
 type LFSPINCHNSIGNOUTPUT struct {
-	Sign_Data LFSXDATA
+	SignData LFSXDATA
 }
 
 type LFSPINCHNVERIFY struct {
-	Key            string
-	Plaintext_Data LFSXDATA
-	Sign_Data      LFSXDATA
+	Key           string
+	PlaintextData LFSXDATA
+	SignData      LFSXDATA
 }
 
 type LFSPINCHNEXPORTSM2ISSUERSIGNEDITEM struct {
