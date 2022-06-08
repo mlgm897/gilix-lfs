@@ -181,7 +181,7 @@ type LFSBCRCAPS struct {
 	Class                uint
 	Compound             uint
 	CanFilterSymbologies uint
-	Symbologies          []uint
+	Symbologies          uint
 	GuidLights           [LFS_BCR_GUIDLIGHTS_SIZE]uint
 	Extra                []string
 	PowerSaveControl     uint
@@ -196,7 +196,7 @@ type LFSBCRXDATA struct {
 }
 
 type LFSBCRREADINPUT struct {
-	Symbologies []uint
+	Symbologies uint
 }
 type DefOutLFSBCRREADOUTPUT []LFSBCRREADOUTPUT
 type LFSBCRREADOUTPUT struct {
