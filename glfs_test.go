@@ -143,15 +143,17 @@ func TestLFS(t *testing.T) {
 		pm interface{}
 		pu interface{}
 	}{
-		{3, 11, nil, &stru{}},
-		{4, 12, &stru{1, 2, []byte{0x01}, [][]byte{{0x01, 0x02}, {0x10, 0x11}}, "str1"}, &stru{}},
-		{5, 13, stru{3, 4, []byte{0x00}, [][]byte{{0xa1, 0xa2}, {0x1a, 0x1b}}, "str2"}, &stru{}},
-		{6, 14, &[]stru{{}, {Fint: 1}, {Fuint: 2}, {Fbytes: []byte{0x03}}, {Fstr: "s4"}}, &[]stru{}},
-		{7, 15, &[]*stru{{}, {Fint: 2}, {Fuint: 3}, {Fbytes: []byte{0x04}}, {Fstr: "s5"}}, &[]stru{}},
-		{8, 16, &[]stru{}, &[]stru{}},
-		{9, 17, &[]*stru{}, &[]stru{}},
-		{10, 18, nil, &[]stru{}},
-		{10, 18, nil, &stru{}},
+		{1, 11, nil, &stru{}},
+		{2, 12, &stru{1, 2, []byte{0x01}, [][]byte{{0x01, 0x02}, {0x10, 0x11}}, "str1"}, &stru{}},
+		{3, 13, stru{3, 4, []byte{0x00}, [][]byte{{0xa1, 0xa2}, {0x1a, 0x1b}}, "str2"}, &stru{}},
+		{4, 14, &[]stru{{}, {Fint: 1}, {Fuint: 2}, {Fbytes: []byte{0x03}}, {Fstr: "s4"}}, &[]stru{}},
+		{5, 15, &[]*stru{{}, {Fint: 2}, {Fuint: 3}, {Fbytes: []byte{0x04}}, {Fstr: "s5"}}, &[]stru{}},
+		{6, 16, &[]stru{}, &[]stru{}},
+		{7, 17, &[]*stru{}, &[]stru{}},
+		{8, 18, []stru{{}, {Fint: 1}, {Fuint: 2}, {Fbytes: []byte{0x03}}, {Fstr: "s4"}}, &[]stru{}},
+		{9, 19, []*stru{{}, {Fint: 2}, {Fuint: 3}, {Fbytes: []byte{0x04}}, {Fstr: "s5"}}, &[]stru{}},
+		{10, 20, nil, &[]stru{}},
+		{11, 21, nil, &stru{}},
 	}
 
 	for _, c := range cases {

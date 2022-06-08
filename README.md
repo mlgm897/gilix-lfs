@@ -18,8 +18,8 @@
   - 例如 ```LFSIDCCARDDATA```
 - 数组
   - 定义新的 slice 类型
-  - 若数组元素是结构体，则建议定义定义为指针
-  - 例如 ```type xxx []*LFSIDCCARDDATA``` ，又如 ```type xxx []string```
+  - 例如 ```type xxx []LFSIDCCARDDATA``` 
+  - 又如 ```type xxx []string```
 - 简单类型
   - 定义新的结构体类型进行包装
   - 例如 ```type xxx struct { sth string }```
@@ -28,9 +28,20 @@
 
 - 如果是输入，则前缀 ```DefIn```
 - 如果是输出，则前缀 ```DefOut```
-- 加上命令名称，例如命令码是 ```LFS_CMD_IDC_READ_RAW_DATA``` ，则缩写为 ```LFSIDCREADRAWDATA```
-- 例如，```type DefInLFSIDCWRITERAWDATA []*LFSIDCCARDDATA```
-- 又如，```type DefOutLFSIDCREADRAWDATA []*LFSIDCCARDDATA```
+- 如果是事件，则根据事件类型的不同，前缀：
+  - ```DefExee``` 
+  - ```DefUsre``` 
+  - ```DefSrve``` 
+  - ```DefSyse``` 
+- 例如：
+  - 命令 ```LFS_CMD_IDC_WRITE_RAW_DATA```
+  - 命名 ```type DefInLFSIDCWRITERAWDATA []LFSIDCCARDDATA```
+- 例如：
+  - 命令 ```LFS_CMD_IDC_READ_RAW_DATA```
+  - 命名 ```type DefOutLFSIDCREADRAWDATA []LFSIDCCARDDATA```
+- 例如：
+  - 事件 ```LFS_USRE_PTR_INKTHRESHOLD```
+  - 命名 ```type DefUsreLFSPTRINKTHRESHOLD struct { InkThreshold uint }```
 
 ##### 变量类型
 
@@ -38,6 +49,8 @@
 - 所有的有符号整型：```int```
 - 普通字符串：```string```
 - 特殊字符串：```[]byte```
+- BOOL：```uint```
+- BYTE/CHAR：```byte``` 或 ```uint```
 
 ##### 变量命名
 
