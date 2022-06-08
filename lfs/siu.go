@@ -462,7 +462,7 @@ type LFSSIUSTATUS struct {
 	Indicators            [LFS_SIU_INDICATORS_SIZE]uint
 	Auxiliaries           [LFS_SIU_AUXILIARIES_SIZE]uint
 	GuidLights            [LFS_SIU_GUIDLIGHTS_SIZE]uint
-	Extra                 []byte
+	Extra                 []string
 	PowerSaveRecoveryTime uint
 }
 
@@ -474,8 +474,8 @@ type LFSSIUCAPS struct {
 	Indicators       [LFS_SIU_INDICATORS_SIZE]uint
 	Auxiliaries      [LFS_SIU_AUXILIARIES_SIZE]uint
 	Guid_Lights      [LFS_SIU_GUIDLIGHTS_SIZE]uint
-	Extra            []byte
-	PowerSaveControl int
+	Extra            []string
+	PowerSaveControl uint
 }
 
 /*=================================================================*/
@@ -485,10 +485,10 @@ type LFSSIUCAPS struct {
 type LFSSIUENABLE struct {
 	Sensors     [LFS_SIU_SENSORS_SIZE]uint
 	Doors       [LFS_SIU_DOORS_SIZE]uint
-	wIndicators [LFS_SIU_INDICATORS_SIZE]uint
+	Indicators  [LFS_SIU_INDICATORS_SIZE]uint
 	Auxiliaries [LFS_SIU_AUXILIARIES_SIZE]uint
 	GuidLights  [LFS_SIU_GUIDLIGHTS_SIZE]uint
-	Extra       []byte
+	Extra       []string
 }
 
 type LFSSIUSETPORTS struct {
@@ -496,7 +496,7 @@ type LFSSIUSETPORTS struct {
 	Indicators  [LFS_SIU_INDICATORS_SIZE]uint
 	Auxiliaries [LFS_SIU_AUXILIARIES_SIZE]uint
 	GuidLights  [LFS_SIU_GUIDLIGHTS_SIZE]uint
-	Extra       []byte
+	Extra       []string
 }
 
 type LFSSIUSETDOOR struct {
@@ -531,7 +531,7 @@ type LFSSIUPORTEVENT struct {
 	PortType   uint
 	PortIndex  uint
 	PortStatus uint
-	Extra      []byte
+	Extra      []string
 }
 
 type LFSSIUPORTERROR struct {
@@ -539,7 +539,7 @@ type LFSSIUPORTERROR struct {
 	PortIndex  uint
 	PortError  int
 	PortStatus uint
-	Extra      []byte
+	Extra      []string
 }
 
 type LFSSIUPOWERSAVECHANGE struct {
